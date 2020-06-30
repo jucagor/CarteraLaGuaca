@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block app_content %}
+{% import 'bootstrap/wtf.html' as wtf %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ingresar Cliente</h1>
+</div>
+    <div class="form-row">        
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Datos</h6>
+                </div>
+                <div class="card-body">
+                  <form class="form-group" method="post" role="form">
+                    <!-- {{ wtf.quick_form(ingreso_clientes_form) }} -->
+                    {{ ingreso_clientes_form.csrf_token }}
+                    {{ingreso_clientes_form.nombre.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.nombre.id}}" name="{{ingreso_clientes_form.nombre.name}}" required="" type="text" value="" placeholder="">
+                  {{ingreso_clientes_form.tipo_identificacion.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.tipo_identificacion.id}}" name="{{ingreso_clientes_form.tipo_identificacion.name}}" required="" type="text" value="" placeholder="">
+                  {{ingreso_clientes_form.id.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.id.id}}" name="{{ingreso_clientes_form.id.name}}" required="" type="text" value="" placeholder="">
+                  {{ingreso_clientes_form.email.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.email.id}}" name="{{ingreso_clientes_form.email.name}}" type="text" value="" placeholder="">
+                  <pre>  </pre>
+                  <label class="form-check-label" for="defaultCheck2">
+                    {{ingreso_clientes_form.recibir_notificaciones.label}}
+                   </label>
+                  <input type="checkbox" class="form-check form-check-inline" id="{{ingreso_clientes_form.recibir_notificaciones.id}}" name="{{ingreso_clientes_form.recibir_notificaciones.name}}" type="text" value="" placeholder="">      
+                  <pre>  </pre>
+                  {{ingreso_clientes_form.numero_tel.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.numero_tel.id}}" name="{{ingreso_clientes_form.numero_tel.name}}" required="" type="text" value="" placeholder="">
+                  {{ingreso_clientes_form.direccion.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.direccion.id}}" name="{{ingreso_clientes_form.direccion.name}}" required="" type="text" value="" placeholder="">
+                  {{ingreso_clientes_form.descripcion.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_clientes_form.descripcion.id}}" name="{{ingreso_clientes_form.descripcion.name}}" type="text" value="" placeholder=""> 
+                  <pre>  </pre>
+                  <input type="submit" name="{{ingreso_clientes_form.submit.name}}" class="btn btn-primary btn-user btn-block" id="{{ingreso_clientes_form.submit.id}}" value="Registrar">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endblock %}

@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block app_content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Factura: {{factura.id}}</h1>
+</div>
+
+    <div class="row justify-content-start">
+
+        
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Numero</h6>
+                </div>
+                <div class="card-body">
+                {{factura.id}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-2">
+            <h6 class="m-0 font-weight-bold text-primary">cliente</h6>
+            </div>
+            <div class="card-body">
+              {% for cliente in clientes %}
+              {% if cliente.id == factura.cliente_id %}
+              {{cliente.nombre}}
+              {%else%}
+              {%endif%}
+              {%endfor%}
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Monto de la factura</h6>
+                </div>
+                <div class="card-body">
+                  {{'{:20,d}'.format(factura.monto)}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+          <div class="card shadow mb-4">
+              <div class="card-header py-2">
+              <h6 class="m-0 font-weight-bold text-primary">Fecha</h6>
+              </div>
+              <div class="card-body">
+              {{factura.fecha.date()}}
+              </div>
+          </div>
+      </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Vigencia</h6>
+                </div>
+                <div class="card-body">
+                {{factura.vigencia.date()}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Descripcion</h6>
+                </div>
+                <div class="card-body">
+                {{factura.descripcion}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Contado</h6>
+                </div>
+                <div class="card-body">
+                  {% if factura.contado%}
+                  SI
+              {% else %}
+                  NO
+              {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Numero de cuotas</h6>
+                </div>
+                <div class="card-body">
+                {{factura.numero_cuotas}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Periodicidad de cuotas en dias</h6>
+                </div>
+                <div class="card-body">
+                  {{factura.periodicidad_cuotas}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Saldo a la fecha</h6>
+                </div>
+                <div class="card-body">
+                  {{'{:20,d}'.format(factura.saldo)}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Factura cancelada</h6>
+                </div>
+                <div class="card-body">
+                  {% if factura.cancelada%}
+                  SI
+              {% else %}
+                  NO
+              {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Vendedor</h6>
+                </div>
+                <div class="card-body">
+                    {{factura.vendedor}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Factura al dia</h6>
+                </div>
+                <div class="card-body">
+                    {% if factura.al_dia%}
+                  SI
+              {% else %}
+                  NO
+              {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row justify-content-start">
+      <div class="col-lg-2">
+        <div class="card shadow mb-4">
+              <form action="{{url_for('main.ingreso_abono')}}" method=get>
+                <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit" name="id" value="{{factura.id}}">Agregar Abono</button>
+              </form>
+        </div>
+      </div>
+    </div>
+
+  {% endblock %}

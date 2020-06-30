@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block app_content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ingresar Abono</h1>
+</div>
+    <div class="form-row">        
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Datos</h6>
+                </div>
+                <div class="card-body">
+                  <form class="form-group" method="post" role="form">
+                    {{ ingreso_Abono_form.csrf_token }}
+                    {{ingreso_Abono_form.id.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.id.id}}" name="{{ingreso_Abono_form.id.name}}" required="" type="text" value="" placeholder="">
+
+                  {{ingreso_Abono_form.factura_id.label}}
+                  {% if id_factura == 'None' %}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.factura_id.id}}" name="{{ingreso_Abono_form.factura_id.name}}" required="" type="text" value="" placeholder="">
+                    {%else %}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.factura_id.id}}" name="{{ingreso_Abono_form.factura_id.name}}" required="" type="text" value="{{id_factura}}" placeholder="{{id_factura}}">
+                  {%endif%}
+                  
+                  {{ingreso_Abono_form.monto.label}}
+                  {% if monto == 'None' %}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.monto.id}}" name="{{ingreso_Abono_form.monto.name}}" required="" type="text" value="" placeholder="">
+                  {%else %}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.monto.id}}" name="{{ingreso_Abono_form.monto.name}}" required="" type="text" value="{{monto}}" placeholder="{{monto}}">
+                  {%endif%}
+
+                  {{ingreso_Abono_form.descripcion.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.descripcion.id}}" name="{{ingreso_Abono_form.descripcion.name}}" type="text" value="" placeholder=""> 
+                 
+                  <label class="form-check-label" for="defaultCheck2">
+                    {{ingreso_Abono_form.reduccion_cuotas.label}}
+                   </label>
+                  <input type="checkbox" class="form-check form-check-inline" id="{{ingreso_Abono_form.reduccion_cuotas.id}}" name="{{ingreso_Abono_form.reduccion_cuotas.name}}" value="True" placeholder="">
+                  <pre>  </pre>
+                  <label class="form-check-label" for="defaultCheck2">
+                    {{ingreso_Abono_form.abono_capital.label}}
+                   </label>
+                  <input type="checkbox" class="form-check form-check-inline" id="{{ingreso_Abono_form.abono_capital.id}}" name="{{ingreso_Abono_form.abono_capital.name}}" value="True" placeholder="">
+                  <pre>  </pre>
+                  <input type="submit" name="{{ingreso_Abono_form.submit.name}}" class="btn btn-primary btn-user btn-block" id="{{ingreso_Abono_form.submit.id}}" value="Registrar">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endblock %}

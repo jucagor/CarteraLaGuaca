@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+          <!-- Page Heading -->
+          {% block app_content %}
+          <h1 class="h3 mb-2 text-gray-800">Clientes</h1>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Lista de Clientes</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Identificacion</th>
+                      <th>Telefono</th>
+                      <th>Saldo</th>
+                      <th>Fecha de pago</th>
+                      <th>Detalles</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Identificacion</th>
+                      <th>Telefono</th>
+                      <th>Saldo</th>
+                      <th>Fecha de pago</th>
+                      <th>Detalles</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for cliente in clientes %} 
+                    <tr>
+                      <td>{{cliente.nombre}}</td>
+                      <td>{{cliente.id}}</td>
+                      <td>{{cliente.numero_tel}}</td>
+                      <td>{{cliente.saldo}}</td>
+                      <td>{{cliente.fecha_pago}}</td>
+                      <td>
+                        <form action="{{url_for('main.detalle_cliente')}}" method=get>
+                          <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit" name="id" value="{{cliente.id}}">Detalles</button>
+                        </form>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+          <!-- Page Heading -->
+          {% block app_content %}
+          <!-- Page Heading -->
+          <div class="row">
+            <div class="col">
+              <h1 class="h3 mb-2 text-gray-800">Cuotas por vencer esta semana</h1>
+            </div>
+            <div class="col-lg-2">
+              <form action="{{url_for('main.visualizar_cuotas')}}" method=get>
+                <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit">Detalles</button>
+              </form>
+            </div>
+          </div>
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Cuotas para esta semana</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Numero Cuota</th>
+                      <th>Factura</th>
+                      <th>Cliente</th>
+                      <th>Saldo</th>
+                      <th>Vigencia</th>
+                      <th>Vencida</th>
+                      <th>Abonar</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Numero Cuota</th>
+                      <th>Factura</th>
+                      <th>Cliente</th>
+                      <th>Saldo</th>
+                      <th>Vigencia</th>
+                      <th>Vencida</th>
+                      <th>Abonar</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for cuota in cuotas %}
+                    {% if cuota.fecha.strftime("%V") == fecha_actual.strftime("%V") or cuota.vencida %} 
+                    <tr>
+                      <td>{{cuota.numero}}</td>
+                      <td>{{cuota.factura_id}}</td>
+                      <td>{% for cliente in clientes %}
+                        {% if cliente.id == cuota.cliente_id %}
+                        {{cliente.nombre}}
+                        {%else%}
+                        {%endif%}
+                        {%endfor%}
+                      </td>
+                      <td>{{'{:20,d}'.format(cuota.monto)}}</td>
+                      <td>{{cuota.fecha.date()}}</td>
+                      <td>{% if cuota.vencida%}
+                            <strong style="color:#FF0000">SI</strong>
+                          {% else %}
+                            NO
+                          {% endif %}
+                  </td>
+                      <td>
+                        <form action="{{url_for('main.ingreso_abono')}}" method=get>
+                          <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit" name="id" value="{{cuota.factura_id}}" >Abonar</button>
+                          <input type="hidden" name="monto" value="{{cuota.monto}}">
+                        </form>
+                      </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endblock %}

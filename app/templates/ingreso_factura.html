@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block app_content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ingresar Factura</h1>
+</div>
+    <div class="form-row">        
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Datos</h6>
+                </div>
+                <div class="card-body">
+                  <form class="form-group" method="post" role="form">
+                    {{ ingreso_factura_form.csrf_token }}
+                    {{ingreso_factura_form.id.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.id.id}}" name="{{ingreso_factura_form.id.name}}" required="" type="text" value="" placeholder="">
+
+                  {{ingreso_factura_form.cliente_id.label}}
+                  {% if id_cliente == 'None' %}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.cliente_id.id}}" name="{{ingreso_factura_form.cliente_id.name}}" required="" type="text" value="" placeholder="">
+                    {%else %}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.cliente_id.id}}" name="{{ingreso_factura_form.cliente_id.name}}" required="" type="text" value="{{id_cliente}}" placeholder="{{id_cliente}}">
+                  {%endif%}
+                  
+                  {{ingreso_factura_form.monto.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.monto.id}}" name="{{ingreso_factura_form.monto.name}}" required="" type="text" value="" placeholder="">
+                  
+                  {{ingreso_factura_form.vendedor.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.vendedor.id}}" name="{{ingreso_factura_form.vendedor.name}}" required="" type="text" value="" placeholder="">
+                  
+                  {{ingreso_factura_form.descripcion.label}}
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.descripcion.id}}" name="{{ingreso_factura_form.descripcion.name}}" type="text" value="" placeholder=""> 
+                  
+                  <pre>  </pre>
+                  
+                  <label class="form-check-label" for="defaultCheck2">
+                    {{ingreso_factura_form.contado.label}}
+                   </label>
+                  <input type="checkbox" class="form-check form-check-inline" id="{{ingreso_factura_form.contado.id}}" name="{{ingreso_factura_form.contado.name}}" value="True" placeholder="" onclick="myFunction()">      
+                  <pre>  </pre>
+                  <div id="credito">
+                    {{ingreso_factura_form.numero_cuotas.label}}
+                    <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.numero_cuotas.id}}" name="{{ingreso_factura_form.numero_cuotas.name}}" type="text" value="0" placeholder="">
+                  
+                    {{ingreso_factura_form.periodicidad_cuotas.label}}
+                    <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.periodicidad_cuotas.id}}" name="{{ingreso_factura_form.periodicidad_cuotas.name}}"  type="number" value="0" placeholder="">
+                  </div>
+                  <pre>  </pre>
+                  <input type="submit" name="{{ingreso_factura_form.submit.name}}" class="btn btn-primary btn-user btn-block" id="{{ingreso_factura_form.submit.id}}" value="Registrar">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      function myFunction() {
+        var checkBox = document.getElementById("{{ingreso_factura_form.contado.id}}");
+        var cuotas = document.getElementById("credito");
+        if (checkBox.checked == true){
+          cuotas.style.display = "none";
+          
+        } else {
+          cuotas.style.display = "block";
+        }
+      }
+      </script>
+  {% endblock %}

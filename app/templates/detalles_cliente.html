@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block app_content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Cliente: {{cliente.nombre}}</h1>
+</div>
+
+    <div class="row justify-content-start">
+        
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Descripcion</h6>
+                </div>
+                <div class="card-body">
+                {{cliente.descripcion}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Identificacion</h6>
+            </div>
+            <div class="card-body">
+                {{cliente.tipo_identificacion}} {{cliente.id}}
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Correo</h6>
+                </div>
+                <div class="card-body">
+                    {{cliente.email}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Recibir notificaciones</h6>
+                </div>
+                <div class="card-body">
+                {% if cliente.recibir_notificaciones%}
+                    SI
+                {% else %}
+                    NO
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Telefono</h6>
+                </div>
+                <div class="card-body">
+                {{cliente.numero_tel}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Direccion</h6>
+                </div>
+                <div class="card-body">
+                {{cliente.direccion}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Fecha Inscripcion</h6>
+                </div>
+                <div class="card-body">
+                {{cliente.fecha_inscripcion}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-start">
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Cliente al dia</h6>
+                </div>
+                <div class="card-body">
+                {% if cliente.cliente_al_dia%}
+                    SI
+                {% else %}
+                    NO
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Saldo a la fecha</h6>
+                </div>
+                <div class="card-body">
+                {{cliente.saldo}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">Fecha de pago</h6>
+                </div>
+                <div class="card-body">
+                {{cliente.fecha_pago}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-start">
+    <div class="col-lg-2">
+      <div class="card shadow mb-4">
+            <form action="{{url_for('main.ingreso_factura')}}" method=get>
+              <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit" name="id" value="{{cliente.id}}">Agregar Factura</button>
+            </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Numero</th>
+              <th>Cliente</th>
+              <th>Monto</th>
+              <th>Saldo</th>
+              <th>Vigencia</th>
+              <th>Cancelada</th>
+              <th>Detalles</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Numero</th>
+              <th>Cliente</th>
+              <th>Monto</th>
+              <th>Saldo</th>
+              <th>Vigencia</th>
+              <th>Cancelada</th>
+              <th>Detalles</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for factura in facturas %} 
+            <tr>
+              <td>{{factura.id}}</td>
+              <td>
+                {{cliente.nombre}}
+              </td>
+              <td>{{'{:20,d}'.format(factura.monto)}}</td>
+              <td>{{'{:20,d}'.format(factura.saldo)}}</td>
+              <td>{{factura.vigencia.date()}}</td>
+              <td>{% if factura.cancelada%}
+                SI
+            {% else %}
+                NO
+            {% endif %}</td>
+              <td>
+                <form action="{{url_for('main.detalle_factura')}}" method=get>
+                  <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit" name="id" value="{{factura.id}}">Detalles</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

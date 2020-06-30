@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+          <!-- Page Heading -->
+          {% block app_content %}
+          <h1 class="h3 mb-2 text-gray-800">Abonos</h1>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Lista de Abonos</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Numero</th>
+                      <th>Factura</th>
+                      <th>Monto</th>
+                      <th>Fecha</th>
+                      <th>Descripcion</th>
+                      <th>Reduccion a</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Numero</th>
+                      <th>Factura</th>
+                      <th>Monto</th>
+                      <th>Fecha</th>
+                      <th>Descripcion</th>
+                      <th>Reduccion a</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for abono in abonos %} 
+                    <tr>
+                      <td>{{abono.id}}</td>
+                      <td>{% for factura in facturas %}
+                        {% if factura.id == abono.factura_id %}
+                        {{factura.id}}
+                        {%else%}
+                        {%endif%}
+                        {%endfor%}
+                      </td>
+                      <td>{{'{:20,d}'.format(abono.monto)}}</td>
+                      <td>{{abono.fecha.date()}}</td>
+                      <td>{{abono.descripcion}}}</td>
+                      <td>
+
+                        {% if abono.reduccion_cuotas %}
+                        Cuotas
+                        {% else %}
+                        {% endif %}
+
+                        {% if abono.abono_capital %}
+                        Capital
+                        {% else %}
+                        {% endif %}
+
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endblock %}
