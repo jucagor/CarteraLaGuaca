@@ -19,7 +19,7 @@
                   {% if id_factura == 'None' %}
                   <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.factura_id.id}}" name="{{ingreso_Abono_form.factura_id.name}}" required="" type="text" value="" placeholder="">
                     {%else %}
-                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.factura_id.id}}" name="{{ingreso_Abono_form.factura_id.name}}" required="" type="text" value="{{id_factura}}" placeholder="{{id_factura}}">
+                  <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.factura_id.id}}" name="{{ingreso_Abono_form.factura_id.name}}" required="" type="text" value="{{id_factura}}" placeholder="{{id_factura}}" readonly>
                   {%endif%}
                   
                   {{ingreso_Abono_form.monto.label}}
@@ -32,6 +32,11 @@
                   {{ingreso_Abono_form.descripcion.label}}
                   <input type="text" class="form-control lg-4" id="{{ingreso_Abono_form.descripcion.id}}" name="{{ingreso_Abono_form.descripcion.name}}" type="text" value="" placeholder=""> 
                  
+                  {{ingreso_Abono_form.fecha.label}}
+                  <div id="fecha">
+                    <input type="date" class="date" id="{{ingreso_Abono_form.fecha.id}}" name="{{ingreso_Abono_form.fecha.name}}" value="{{hoy}}">
+                  </div>
+                  <pre>  </pre>
                   <label class="form-check-label" for="defaultCheck2">
                     {{ingreso_Abono_form.reduccion_cuotas.label}}
                    </label>

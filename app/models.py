@@ -80,6 +80,7 @@ class Cuota(db.Model):
     fecha=db.Column(db.DateTime)
     cliente_id=db.Column(db.Integer, db.ForeignKey(Cliente.id))
     vencida=db.Column(db.Boolean, default=False)
+    dias_mora=db.Column(db.Integer)
 
 @login.user_loader
 def load_user(id):

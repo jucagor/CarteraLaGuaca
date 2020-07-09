@@ -1,4 +1,4 @@
-env/
+venv/
 
 *.db
 
@@ -12,6 +12,7 @@ instance/
 htmlcov/
 
 migrations/
+.vscode/
 
 dist/
 build/

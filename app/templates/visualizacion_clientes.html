@@ -16,7 +16,7 @@
                       <th>Identificacion</th>
                       <th>Telefono</th>
                       <th>Saldo</th>
-                      <th>Fecha de pago</th>
+                      <th>Cliente al dia</th>
                       <th>Detalles</th>
                     </tr>
                   </thead>
@@ -26,7 +26,7 @@
                       <th>Identificacion</th>
                       <th>Telefono</th>
                       <th>Saldo</th>
-                      <th>Fecha de pago</th>
+                      <th>Cliente al dia</th>
                       <th>Detalles</th>
                     </tr>
                   </tfoot>
@@ -37,7 +37,13 @@
                       <td>{{cliente.id}}</td>
                       <td>{{cliente.numero_tel}}</td>
                       <td>{{cliente.saldo}}</td>
-                      <td>{{cliente.fecha_pago}}</td>
+                      <td>
+                        {% if cliente.cliente_al_dia %}
+                        SI
+                    {% else %}
+                    <strong style="color:#FF0000">NO</strong>
+                    {% endif %}
+                      </td>
                       <td>
                         <form action="{{url_for('main.detalle_cliente')}}" method=get>
                           <button class="btn btn-primary btn-user btn-block" id="detalles" type="submit" name="id" value="{{cliente.id}}">Detalles</button>

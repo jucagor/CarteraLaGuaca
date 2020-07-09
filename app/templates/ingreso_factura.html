@@ -19,7 +19,7 @@
                   {% if id_cliente == 'None' %}
                   <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.cliente_id.id}}" name="{{ingreso_factura_form.cliente_id.name}}" required="" type="text" value="" placeholder="">
                     {%else %}
-                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.cliente_id.id}}" name="{{ingreso_factura_form.cliente_id.name}}" required="" type="text" value="{{id_cliente}}" placeholder="{{id_cliente}}">
+                  <input type="text" class="form-control lg-4" id="{{ingreso_factura_form.cliente_id.id}}" name="{{ingreso_factura_form.cliente_id.name}}" required="" type="text" value="{{id_cliente}}" placeholder="{{id_cliente}}" readonly>
                   {%endif%}
                   
                   {{ingreso_factura_form.monto.label}}
@@ -35,8 +35,18 @@
                   
                   <label class="form-check-label" for="defaultCheck2">
                     {{ingreso_factura_form.contado.label}}
-                   </label>
+                  </label>
+
                   <input type="checkbox" class="form-check form-check-inline" id="{{ingreso_factura_form.contado.id}}" name="{{ingreso_factura_form.contado.name}}" value="True" placeholder="" onclick="myFunction()">      
+                  <pre>  </pre>  
+
+                  <label class="form-check-label2" for="defaultCheck3">
+                    {{ingreso_factura_form.fecha.label}}
+                  </label>
+
+                  <div id="fecha">
+                    <input type="date" class="date" id="{{ingreso_factura_form.fecha.id}}" name="{{ingreso_factura_form.fecha.name}}" value="{{hoy}}">
+                  </div>
                   <pre>  </pre>
                   <div id="credito">
                     {{ingreso_factura_form.numero_cuotas.label}}
@@ -53,6 +63,7 @@
         </div>
     </div>
     <script>
+
       function myFunction() {
         var checkBox = document.getElementById("{{ingreso_factura_form.contado.id}}");
         var cuotas = document.getElementById("credito");
@@ -63,5 +74,17 @@
           cuotas.style.display = "block";
         }
       }
+
+      function myFunction2() {
+        var checkBox = document.getElementById("fechaDiferente");
+        var cuotas = document.getElementById("fecha");
+        if (checkBox.checked == true){
+          cuotas.style.display = "none";
+          
+        } else {
+          cuotas.style.display = "block";
+        }
+      }
+
       </script>
   {% endblock %}

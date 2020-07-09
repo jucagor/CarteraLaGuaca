@@ -24,6 +24,7 @@ class IngresoFacturaForm(FlaskForm):
     cliente_id = IntegerField('Identificacion del cliente', validators=[DataRequired()])
     monto = IntegerField('Valor de la factura', validators=[DataRequired()])
     vigencia = StringField('vigencia de la factura')
+    fecha = DateField('Fecha de la Factura')
     descripcion = StringField('Descripcion')
     contado = BooleanField('Factura de contado?')
     numero_cuotas = IntegerField('Numero de cuotas')
@@ -36,6 +37,7 @@ class IngresoAbonoForm(FlaskForm):
     factura_id = IntegerField('Numero de factura a abonar', validators=[DataRequired()])
     monto = IntegerField('Valor del Abono', validators=[DataRequired()])
     descripcion = StringField('Descripcion')
+    fecha = DateField('Fecha del Abono')
     reduccion_cuotas = BooleanField('Reduccion de cuotas?')
     abono_capital = BooleanField('Abono a capital?')
 
